@@ -1,6 +1,8 @@
-﻿using HotelManagementApp.Helpers;
+﻿using HotelManagementApp.DataModels;
+using HotelManagementApp.Helpers;
 using HotelManagementApp.Models;
 using HotelManagementApp.Views;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +21,8 @@ namespace HotelManagementApp.ViewModel
         private ObservableCollection<RoomToShow> _roomToEditList;
 
         private RoomToShow _selectedRoom;
+
+        private readonly HoteldbContext _hoteldbContext;
 
         #endregion
 
@@ -64,6 +68,8 @@ namespace HotelManagementApp.ViewModel
 
         public RoomEditorViewModel()
         {
+            _hoteldbContext = new HoteldbContext();
+
             AddCommand = new RelayCommand(Add);
             EditCommand = new RelayCommand(Edit, param => CanExecuteCommands);
             DeleteCommand = new RelayCommand(Delete, param => CanExecuteCommands);
@@ -75,47 +81,68 @@ namespace HotelManagementApp.ViewModel
             {
                 new RoomToShow
                 {
-                    Id = 1,
-                    Type = "Type1",
+                    Type = "Single",
                     Features = "AC, Watever",
                     Price = 2.45f,
-                    Image = File.ReadAllBytes(path),
                     Number = 1
                 },
                 new RoomToShow
                 {
-                    Id = 2,
-                    Type = "Type2",
+                    Type = "Double",
                     Price = 2.45f,
                     Features = "AC, Watever",
-                    Image = File.ReadAllBytes(path),
                     Number = 2
                 },
                 new RoomToShow
                 {
-                    Id = 3,
-                    Type = "Type3",
+                    Type = "Single",
                     Features = "AC, Watever",
                     Price = 2.45f,
-                    Image = File.ReadAllBytes(path),
                     Number = 3
                 },
                 new RoomToShow
                 {
-                    Id = 4,
                     Features = "AC, Watever",
-                    Type = "Type4",
+                    Type = "Double",
                     Price = 2.45f,
-                    Image = File.ReadAllBytes(path),
                     Number = 4
                 },
             };
+            ConstructRoomToShow();
 
         }
 
         #endregion
 
+        private void ConstructRoomToShow()
+        {
+            var rooms = _hoteldbContext.Rooms.Include(room => room.RoomType).ToList();
 
+            List<RoomToShow> roomsToShow = new List<RoomToShow>();
+
+            foreach (var room in rooms)
+            {
+                roomsToShow.Add(new RoomToShow()
+                {
+                    Number = room.Number,
+                    Type = room.RoomType.Description,
+                    Features = room.RoomType.Features,
+                    Price = 0.0f
+                });
+            }
+
+
+            foreach (var room in roomsToShow)
+            {
+                var imageIdByRoom = _hoteldbContext.RoomRoomImages.Include(x => x.RoomType)
+                    .FirstOrDefault(x => x.RoomType.Description.Equals(room.Type));
+
+                if(imageIdByRoom != null)
+                    room.Image = _hoteldbContext.RoomImages.FirstOrDefault(image => image.Id == imageIdByRoom.RoomImageId).Picture;
+            }
+
+            RoomToEditList = new ObservableCollection<RoomToShow>(roomsToShow);
+        }
 
 
 
@@ -126,23 +153,23 @@ namespace HotelManagementApp.ViewModel
         {
             AddOrEditRoomWindow window = new AddOrEditRoomWindow();
 
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = window;
+            App.Current.MainWindow.Hide();
+            window.ShowDialog();
             App.Current.MainWindow.Show();
         }
         //daca trebe cumva schimbat la astea doua ca sa putem da back?
         private void Edit(object param)//enabled doar cand e un element selectat
         {
-            AddOrEditRoomWindow window = new AddOrEditRoomWindow();
+            AddOrEditRoomWindow window = new AddOrEditRoomWindow(SelectedRoom);
 
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = window;
+            App.Current.MainWindow.Hide();
+            window.ShowDialog();
             App.Current.MainWindow.Show();
         }
 
         private void Delete(object param)//enabled doar cand e un element selectat
         {
-            
+
         }
 
         private void Back(object param)

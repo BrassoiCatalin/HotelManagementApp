@@ -1,4 +1,6 @@
-﻿using HotelManagementApp.ViewModel;
+﻿using HotelManagementApp.DataModels;
+using HotelManagementApp.Helpers;
+using HotelManagementApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

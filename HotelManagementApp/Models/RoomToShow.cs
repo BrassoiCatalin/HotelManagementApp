@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagementApp.Models
 {
-    internal class RoomToShow
+    public class RoomToShow
     {
-        public int Id { get; set; }
 
         public int Number { get; set; }
 

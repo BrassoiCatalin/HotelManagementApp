@@ -15,37 +15,6 @@
         d:DataContext="{d:DesignInstance Type=viewmodel:SignViewModel}"
         >
 
-    <Window.Resources>
-        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="25"/>
-            <Setter Property="Foreground" Value="Azure"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="60"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="7,7,7,7"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter x:Name="contentPresenter"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              Content="{TemplateBinding Content}"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="FontSize" Value="35"/>
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -67,8 +36,8 @@
             <PasswordBox x:Name="txtPassword" Width="100"/>
         </StackPanel>
 
-        <Button Content="Register" Width="50" Height="32" Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=txtPassword}" Grid.Row="2" Visibility="{Binding IsSignUp}"/>
-        <Button Content="SingIn"   Width="50" Height="32" Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=txtPassword}" Grid.Row="2" Visibility="{Binding IsSignIn}"/>
+        <Button Content="Register" Style="{StaticResource ButtonStyle}" Width="50" Height="32" Command="{Binding RegisterCommand}" CommandParameter="{Binding ElementName=txtPassword}" Grid.Row="2" Visibility="{Binding IsSignUp}"/>
+        <Button Content="SingIn" Style="{StaticResource ButtonStyle}"   Width="50" Height="32" Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=txtPassword}" Grid.Row="2" Visibility="{Binding IsSignIn}"/>
 
     </Grid>
 </Window>

@@ -1,7 +1,9 @@
-﻿using HotelManagementApp.Helpers;
+﻿using HotelManagementApp.DataModels;
+using HotelManagementApp.Helpers;
 using HotelManagementApp.Models;
 using HotelManagementApp.Views;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +26,8 @@ namespace HotelManagementApp.ViewModel
         private Visibility _isEmployeeConnected;
 
         private ObservableCollection<RoomToShow> _roomToShowList;
+
+        private readonly HoteldbContext _hoteldbContext;
         #endregion
 
 
@@ -86,26 +90,30 @@ namespace HotelManagementApp.ViewModel
 
         public HotelViewModel()
         {
+            _hoteldbContext = new HoteldbContext();
+
             OffersCommand = new RelayCommand(Offers);
             HistoryCommand = new RelayCommand(History);
             RoomsCommand = new RelayCommand(Rooms);
             ServicesCommand = new RelayCommand(Services);
             ReservationsCommand = new RelayCommand(Reservations);
 
+            var allRoles = _hoteldbContext.UserRoles.FromSqlRaw("GetAllRoles").ToList();
+
             if (ConnectedUser.User == null)
             {
                 IsClientConnected = IsAdminConnected = IsEmployeeConnected = Visibility.Hidden;
             }
-            else if (ConnectedUser.User.RoleId == 1)
+            else if (ConnectedUser.User.RoleId == allRoles.Single(role => role.Role.Equals("Administrator")).Id)
             {
                 IsAdminConnected = IsClientConnected = IsEmployeeConnected = Visibility.Visible;
             }
-            else if (ConnectedUser.User.RoleId == 2)
+            else if (ConnectedUser.User.RoleId == allRoles.Single(role => role.Role.Equals("Client")).Id)
             {
                 IsClientConnected = Visibility.Visible;
                 IsAdminConnected = IsEmployeeConnected = Visibility.Hidden;
             }
-            else if (ConnectedUser.User.RoleId == 3)
+            else if (ConnectedUser.User.RoleId == allRoles.Single(role => role.Role.Equals("Employee")).Id)
             {
                 IsClientConnected = IsEmployeeConnected = Visibility.Visible;
                 IsAdminConnected = Visibility.Hidden;
@@ -117,7 +125,6 @@ namespace HotelManagementApp.ViewModel
             {
                 new RoomToShow
                 {
-                    Id = 1,
                     Type = "Type1",
                     Features = "AC, Watever",
                     Price = 2.45f,
@@ -125,7 +132,6 @@ namespace HotelManagementApp.ViewModel
                 },
                 new RoomToShow
                 {
-                    Id = 2,
                     Type = "Type2",
                     Price = 2.45f,
                     Features = "AC, Watever",
@@ -133,7 +139,6 @@ namespace HotelManagementApp.ViewModel
                 },
                 new RoomToShow
                 {
-                    Id = 3,
                     Type = "Type3",
                     Features = "AC, Watever",
                     Price = 2.45f,
@@ -141,7 +146,6 @@ namespace HotelManagementApp.ViewModel
                 },
                 new RoomToShow
                 {
-                    Id = 4,
                     Features = "AC, Watever",
                     Type = "Type4",
                     Price = 2.45f,

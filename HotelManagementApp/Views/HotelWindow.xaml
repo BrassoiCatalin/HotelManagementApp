@@ -50,10 +50,13 @@
         </ListBox>
 
 
-        <Button Grid.Row="3" Grid.Column="1" Visibility="{Binding IsClientConnected}" Content="Offers" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding OffersCommand}"/>
-        <Button Grid.Row="3" Grid.Column="2" Visibility="{Binding IsClientConnected}" Content="History" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding HistoryCommand}"/>
-        <Button Grid.Row="3" Grid.Column="3" Visibility="{Binding IsAdminConnected}" Content="Rooms" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding RoomsCommand}"/>
-        <Button Grid.Row="3" Grid.Column="4" Visibility="{Binding IsAdminConnected}" Content="Services" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding ServicesCommand}"/>
-        <Button Grid.Row="3" Grid.Column="5" Visibility="{Binding IsEmployeeConnected}" Content="Reservations" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding ReservationsCommand}"/>
+        <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsClientConnected}" Content="Offers" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding OffersCommand}"/>
+        <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsClientConnected}" Content="History" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding HistoryCommand}"/>
+        <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsAdminConnected}" Content="Rooms" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding RoomsCommand}"/>
+        <Button Grid.Row="3" Grid.Column="4" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsAdminConnected}" Content="Services" VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding ServicesCommand}"/>
+        <Button Grid.Row="3" Grid.Column="5" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsEmployeeConnected}" Content="Reservations" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ReservationsCommand}"/>
     </Grid>
 </Window>
+
+<!--imi spune ca extra (adica Mic-dejun, transport aeroport, etc.) sa fie legate de rezervare, si nu de camera
+    si atunci cand selectam camera sa avem alegerea sa selectam si extra dar sa creasca si pretul final-->

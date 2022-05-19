@@ -1,4 +1,5 @@
-﻿using HotelManagementApp.ViewModel;
+﻿using HotelManagementApp.Models;
+using HotelManagementApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,12 @@ namespace HotelManagementApp.Views
     /// </summary>
     public partial class AddOrEditRoomWindow : Window
     {
-        public AddOrEditRoomWindow()
+        public AddOrEditRoomWindow(RoomToShow? roomToShow = null)
         {
             InitializeComponent();
 
-            DataContext = new AddOrEditRoomViewModel();
+            DataContext = new AddOrEditRoomViewModel(roomToShow);
+            (DataContext as AddOrEditRoomViewModel).AddOrEditRoomWindow = this;
         }
     }
 }

@@ -2,6 +2,7 @@
 using HotelManagementApp.Helpers;
 using HotelManagementApp.Services;
 using HotelManagementApp.Views;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
