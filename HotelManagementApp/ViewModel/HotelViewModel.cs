@@ -72,7 +72,11 @@ namespace HotelManagementApp.ViewModel
             }
         }
 
-        public ICommand RoomsCommand { get; set; }
+        public ICommand OffersCommand { get; }
+        public ICommand HistoryCommand { get; }
+        public ICommand RoomsCommand { get; }
+        public ICommand ServicesCommand { get; }
+        public ICommand ReservationsCommand { get; }
 
         #endregion
 
@@ -82,7 +86,11 @@ namespace HotelManagementApp.ViewModel
 
         public HotelViewModel()
         {
+            OffersCommand = new RelayCommand(Offers);
+            HistoryCommand = new RelayCommand(History);
             RoomsCommand = new RelayCommand(Rooms);
+            ServicesCommand = new RelayCommand(Services);
+            ReservationsCommand = new RelayCommand(Reservations);
 
             if (ConnectedUser.User == null)
             {
@@ -146,6 +154,15 @@ namespace HotelManagementApp.ViewModel
 
 
         #region Private Methods...
+        private void Offers(object param)
+        {
+
+        }
+
+        private void History(object param)
+        {
+
+        }
 
         private void Rooms(object param)
         {
@@ -156,10 +173,15 @@ namespace HotelManagementApp.ViewModel
             App.Current.MainWindow.Show();
         }
 
-        /*private void RedirectTo()
+        private void Services(object param)
         {
-            
-        }*/
+
+        }
+
+        private void Reservations(object param)
+        {
+
+        }
 
         #endregion
     }

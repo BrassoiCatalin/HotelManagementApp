@@ -18,6 +18,7 @@ namespace HotelManagementApp.ViewModel
 
         private ObservableCollection<RoomToShow> _roomToEditList;
 
+        private RoomToShow _selectedRoom;
 
         #endregion
 
@@ -34,9 +35,27 @@ namespace HotelManagementApp.ViewModel
             }
         }
 
-        public ICommand AddCommand{ get; }
-        public ICommand EditCommand{ get; }
+        public bool CanExecuteCommands { get; set; } = false;
+        public RoomToShow SelectedRoom
+        {
+            get { return _selectedRoom; }
+            set
+            {
+                _selectedRoom = value;
 
+                if (_selectedRoom != null)
+                {
+                    CanExecuteCommands = true;
+                }
+
+                NotifyPropertyChanged(nameof(SelectedRoom));
+            }
+        }
+
+        public ICommand AddCommand { get; }
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand BackCommand { get; set; }
         #endregion
 
 
@@ -46,7 +65,9 @@ namespace HotelManagementApp.ViewModel
         public RoomEditorViewModel()
         {
             AddCommand = new RelayCommand(Add);
-            EditCommand = new RelayCommand(Edit);
+            EditCommand = new RelayCommand(Edit, param => CanExecuteCommands);
+            DeleteCommand = new RelayCommand(Delete, param => CanExecuteCommands);
+            BackCommand = new RelayCommand(Back);
 
             string path = "../../../Images/image.jpg";
 
@@ -94,9 +115,9 @@ namespace HotelManagementApp.ViewModel
 
         #endregion
 
-        
 
-        
+
+
 
 
         #region Private Methods...
@@ -110,8 +131,7 @@ namespace HotelManagementApp.ViewModel
             App.Current.MainWindow.Show();
         }
         //daca trebe cumva schimbat la astea doua ca sa putem da back?
-        //+ ca la add si delete sa fie disabled initial, si enabled doar cand e element selectat
-        private void Edit(object param)
+        private void Edit(object param)//enabled doar cand e un element selectat
         {
             AddOrEditRoomWindow window = new AddOrEditRoomWindow();
 
@@ -120,12 +140,22 @@ namespace HotelManagementApp.ViewModel
             App.Current.MainWindow.Show();
         }
 
+        private void Delete(object param)//enabled doar cand e un element selectat
+        {
+            
+        }
+
+        private void Back(object param)
+        {
+
+        }
         #endregion
 
 
         #region MyRegion
 
         #endregion
+
 
     }
 }

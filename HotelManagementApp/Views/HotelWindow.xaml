@@ -50,10 +50,10 @@
         </ListBox>
 
 
-        <Button Grid.Row="3" Grid.Column="1" Visibility="{Binding IsClientConnected}" Content="Offers" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5"/>
-        <Button Grid.Row="3" Grid.Column="2" Visibility="{Binding IsClientConnected}" Content="History" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5"/>
+        <Button Grid.Row="3" Grid.Column="1" Visibility="{Binding IsClientConnected}" Content="Offers" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding OffersCommand}"/>
+        <Button Grid.Row="3" Grid.Column="2" Visibility="{Binding IsClientConnected}" Content="History" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding HistoryCommand}"/>
         <Button Grid.Row="3" Grid.Column="3" Visibility="{Binding IsAdminConnected}" Content="Rooms" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding RoomsCommand}"/>
-        <Button Grid.Row="3" Grid.Column="4" Visibility="{Binding IsAdminConnected}" Content="Services" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5"/>
-        <Button Grid.Row="3" Grid.Column="5" Visibility="{Binding IsEmployeeConnected}" Content="Reservations" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5"/>
+        <Button Grid.Row="3" Grid.Column="4" Visibility="{Binding IsAdminConnected}" Content="Services" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding ServicesCommand}"/>
+        <Button Grid.Row="3" Grid.Column="5" Visibility="{Binding IsEmployeeConnected}" Content="Reservations" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" FontFamily="Comic Sans MS" Padding="5" Command="{Binding ReservationsCommand}"/>
     </Grid>
 </Window>
