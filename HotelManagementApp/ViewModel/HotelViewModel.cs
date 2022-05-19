@@ -1,5 +1,6 @@
 ﻿using HotelManagementApp.Helpers;
 using HotelManagementApp.Models;
+using HotelManagementApp.Views;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HotelManagementApp.ViewModel
 {
@@ -21,6 +23,7 @@ namespace HotelManagementApp.ViewModel
         private Visibility _isAdminConnected;
         private Visibility _isEmployeeConnected;
 
+        private ObservableCollection<RoomToShow> _roomToShowList;
         #endregion
 
 
@@ -58,6 +61,19 @@ namespace HotelManagementApp.ViewModel
             }
         }
 
+
+        public ObservableCollection<RoomToShow> RoomToShowList
+        {
+            get { return _roomToShowList; }
+            set
+            {
+                _roomToShowList = value;
+                NotifyPropertyChanged(nameof(RoomToShowList));
+            }
+        }
+
+        public ICommand RoomsCommand { get; set; }
+
         #endregion
 
 
@@ -66,6 +82,8 @@ namespace HotelManagementApp.ViewModel
 
         public HotelViewModel()
         {
+            RoomsCommand = new RelayCommand(Rooms);
+
             if (ConnectedUser.User == null)
             {
                 IsClientConnected = IsAdminConnected = IsEmployeeConnected = Visibility.Hidden;
@@ -96,7 +114,7 @@ namespace HotelManagementApp.ViewModel
                     Features = "AC, Watever",
                     Price = 2.45f,
                     Image = File.ReadAllBytes(path)
-        },
+                },
                 new RoomToShow
                 {
                     Id = 2,
@@ -127,20 +145,21 @@ namespace HotelManagementApp.ViewModel
         #endregion
 
 
-        private ObservableCollection<RoomToShow> _roomToShowList;
+        #region Private Methods...
 
-        public ObservableCollection<RoomToShow> RoomToShowList
+        private void Rooms(object param)
         {
-            get { return _roomToShowList; }
-            set
-            {
-                _roomToShowList = value;
-                NotifyPropertyChanged(nameof(RoomToShowList));
-            }
+            RoomEditorWindow window = new RoomEditorWindow();
+
+            App.Current.MainWindow.Close();
+            App.Current.MainWindow = window;
+            App.Current.MainWindow.Show();
         }
 
-
-        #region Methods...
+        /*private void RedirectTo()
+        {
+            
+        }*/
 
         #endregion
     }

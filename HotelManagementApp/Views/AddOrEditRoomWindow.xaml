@@ -1,0 +1,53 @@
+﻿<Window x:Class="HotelManagementApp.Views.AddOrEditRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagementApp.Views"
+         xmlns:viewmodel="clr-namespace:HotelManagementApp.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:RoomEditorViewModel}"
+        mc:Ignorable="d"
+        Title="Add Or Edit" 
+        Height="400" 
+        Width="300"
+        Background="Wheat"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Room number:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Height="15" Width="80"/>
+
+        <Label Grid.Row="2" Grid.Column="1" Content="Type descr:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Height="15" Width="80"/>
+
+        <Label Grid.Row="3" Grid.Column="1" Content="Features:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Height="15" Width="80"/>
+
+        <Label Grid.Row="4" Grid.Column="1" Content="Price:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Height="15" Width="80"/>
+
+        <Label Grid.Row="5" Grid.Column="1" Content="Extra descr:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Height="15" Width="80"/>
+
+    </Grid>
+</Window>
+    
