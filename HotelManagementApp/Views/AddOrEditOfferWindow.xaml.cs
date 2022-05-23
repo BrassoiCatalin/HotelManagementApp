@@ -1,4 +1,5 @@
-﻿using HotelManagementApp.ViewModel;
+﻿using HotelManagementApp.Models;
+using HotelManagementApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,16 @@ using System.Windows.Shapes;
 namespace HotelManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for RoomEditorWindow.xaml
+    /// Interaction logic for AddOrEditOfferWindow.xaml
     /// </summary>
-    public partial class RoomEditorWindow : Window
+    public partial class AddOrEditOfferWindow : Window
     {
-        public RoomEditorWindow()
+        public AddOrEditOfferWindow(OfferToShow? offerToShow = null)
         {
             InitializeComponent();
 
-            DataContext = new RoomEditorViewModel();
-            (DataContext as RoomEditorViewModel).RoomEditorWindow = this;
+            DataContext = new AddOrEditOfferViewModel(offerToShow);
+            (DataContext as AddOrEditOfferViewModel).AddOrEditOfferWindow = this;
         }
     }
 }

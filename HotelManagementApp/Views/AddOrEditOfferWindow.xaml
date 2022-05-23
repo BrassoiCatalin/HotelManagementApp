@@ -1,0 +1,54 @@
+﻿<Window x:Class="HotelManagementApp.Views.AddOrEditOfferWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:HotelManagementApp.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:AddOrEditOfferViewModel}"
+        mc:Ignorable="d"
+        Title="Add/Edit" 
+        Height="400" 
+        Width="400"
+        Background="Wheat"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="Offer Name:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Height="32" Width="130" FontSize="20" Text="{Binding OfferName}"/>
+
+        <Label Grid.Row="2" Grid.Column="1" FontSize="24" Content="Offer Price:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Height="32" Width="130" FontSize="20" Text="{Binding OfferPrice}"/>
+
+        <Label Grid.Row="3" Grid.Column="1" FontSize="24" Content="Start Date:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="3" Grid.Column="2" Height="32" Width="130" FontSize="20" SelectedDate="{Binding StartDate}"/>
+
+        <Label Grid.Row="4" Grid.Column="1" FontSize="24" Content="End Date:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="4" Grid.Column="2" Height="32" Width="130" FontSize="20" SelectedDate="{Binding EndDate}"/>
+
+        <Label Grid.Row="5" Grid.Column="1" FontSize="24" Content="Room Type:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="5" Grid.Column="2" Height="32" Width="130" FontSize="20" ItemsSource="{Binding RoomTypes}" SelectedItem="{Binding SelectedRoomType}"/>
+
+        <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding EditOfferCommand}" Content="Edit" Width="60" Height="30" FontSize="20" Visibility="{Binding IsEditOfferWindow}"/>
+        <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding AddNewOfferCommand}" Content="Add" Width="60" Height="30" FontSize="20" Visibility="{Binding IsAddOfferWindow}"/>
+        <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource ButtonStyle}" Command="{Binding CancelCommand}" Content="Cancel" Width="60" Height="30" FontSize="20"/>
+
+
+    </Grid>
+</Window>

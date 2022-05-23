@@ -28,6 +28,7 @@ namespace HotelManagementApp.ViewModel
 
 
         #region Public Properties...
+        public RoomEditorWindow RoomEditorWindow { get; set; }
 
         public ObservableCollection<RoomToShow> RoomToEditList
         {
@@ -116,7 +117,7 @@ namespace HotelManagementApp.ViewModel
 
         private void ConstructRoomToShow()
         {
-            var rooms = _hoteldbContext.Rooms.Include(room => room.RoomType).ToList();
+            var rooms = _hoteldbContext.Rooms.Include(room => room.RoomType).Where(room => room.Deleted == false).ToList();
 
             List<RoomToShow> roomsToShow = new List<RoomToShow>();
 
@@ -153,35 +154,37 @@ namespace HotelManagementApp.ViewModel
         {
             AddOrEditRoomWindow window = new AddOrEditRoomWindow();
 
-            App.Current.MainWindow.Hide();
             window.ShowDialog();
-            App.Current.MainWindow.Show();
         }
         //daca trebe cumva schimbat la astea doua ca sa putem da back?
-        private void Edit(object param)//enabled doar cand e un element selectat
+        private void Edit(object param)
         {
-            AddOrEditRoomWindow window = new AddOrEditRoomWindow(SelectedRoom);
+            if (SelectedRoom == null)
+                return;
 
-            App.Current.MainWindow.Hide();
+            AddOrEditRoomWindow window = new AddOrEditRoomWindow(SelectedRoom);
+            
             window.ShowDialog();
-            App.Current.MainWindow.Show();
         }
 
-        private void Delete(object param)//enabled doar cand e un element selectat
+        private void Delete(object param)
         {
+            if (SelectedRoom == null)
+                return;
 
+            var roomFromDatabase = _hoteldbContext.Rooms.Single(x => x.Number == SelectedRoom.Number);
+            roomFromDatabase.Deleted = true;
+            _hoteldbContext.SaveChanges();
+
+            RoomToEditList.Remove(SelectedRoom);
         }
 
         private void Back(object param)
         {
-
+            RoomEditorWindow.Close();
         }
         #endregion
 
-
-        #region MyRegion
-
-        #endregion
 
 
     }

@@ -160,31 +160,48 @@ namespace HotelManagementApp.ViewModel
         #region Private Methods...
         private void Offers(object param)
         {
-
+            OffersWindow window = new OffersWindow();
+            GoToWindow(window);
         }
 
         private void History(object param)
         {
+            MessageBox.Show("Modify this");
+            return;
 
+            RoomEditorWindow window = new RoomEditorWindow();
+            GoToWindow(window);
         }
 
         private void Rooms(object param)
         {
             RoomEditorWindow window = new RoomEditorWindow();
-
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = window;
-            App.Current.MainWindow.Show();
+            GoToWindow(window);
         }
 
         private void Services(object param)
         {
+            MessageBox.Show("Modify this");
+            return;
 
+            RoomEditorWindow window = new RoomEditorWindow();
+            GoToWindow(window);
         }
 
         private void Reservations(object param)
         {
+            MessageBox.Show("Modify this");
+            return;
 
+            RoomEditorWindow window = new RoomEditorWindow();
+            GoToWindow(window);
+        }
+
+        private void GoToWindow(Window window)
+        {
+            App.Current.MainWindow.Hide();
+            window.ShowDialog();
+            App.Current.MainWindow.Show();
         }
 
         #endregion

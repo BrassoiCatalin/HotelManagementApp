@@ -6,7 +6,7 @@
         xmlns:viewmodel="clr-namespace:HotelManagementApp.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewmodel:HotelViewModel}"
         mc:Ignorable="d"
-        Title="HotelWindow"
+        Title="Hotel"
         Height="600"
         Width="900"
         Background="Wheat"
