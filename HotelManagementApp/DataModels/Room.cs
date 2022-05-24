@@ -10,7 +10,6 @@ namespace HotelManagementApp.DataModels
         public Room()
         {
             Reservations = new HashSet<Reservation>();
-            RoomExtras = new HashSet<RoomExtra>();
         }
 
         public int Id { get; set; }
@@ -20,6 +19,5 @@ namespace HotelManagementApp.DataModels
 
         public virtual RoomType RoomType { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
-        public virtual ICollection<RoomExtra> RoomExtras { get; set; }
     }
 }

@@ -7,6 +7,11 @@ namespace HotelManagementApp.DataModels
 {
     public partial class Reservation
     {
+        public Reservation()
+        {
+            ReservationExtras = new HashSet<ReservationExtra>();
+        }
+
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -18,5 +23,6 @@ namespace HotelManagementApp.DataModels
 
         public virtual Room Room { get; set; }
         public virtual User User { get; set; }
+        public virtual ICollection<ReservationExtra> ReservationExtras { get; set; }
     }
 }

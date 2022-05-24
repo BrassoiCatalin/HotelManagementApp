@@ -16,17 +16,16 @@ using System.Windows.Shapes;
 namespace HotelManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for RoomEditorWindow.xaml
+    /// Interaction logic for ServicesWindow.xaml
     /// </summary>
-    public partial class RoomEditorWindow : Window
+    public partial class ServicesWindow : Window
     {
-        public RoomEditorWindow()
+        public ServicesWindow()
         {
             InitializeComponent();
 
-            DataContext = new RoomEditorViewModel();
-            (DataContext as RoomEditorViewModel).RoomEditorWindow = this;
-            //RoomEditorWindow is a property from VM
+            DataContext = new ServicesViewModel();
+            (DataContext as ServicesViewModel).ServicesWindow = this;
         }
     }
 }

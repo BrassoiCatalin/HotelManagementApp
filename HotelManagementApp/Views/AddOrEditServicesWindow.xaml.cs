@@ -1,4 +1,5 @@
-﻿using HotelManagementApp.ViewModel;
+﻿using HotelManagementApp.Models;
+using HotelManagementApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,16 @@ using System.Windows.Shapes;
 namespace HotelManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for RoomEditorWindow.xaml
+    /// Interaction logic for AddOrEditServicesWindow.xaml
     /// </summary>
-    public partial class RoomEditorWindow : Window
+    public partial class AddOrEditServicesWindow : Window
     {
-        public RoomEditorWindow()
+        public AddOrEditServicesWindow(ServicesToShow? servicesToShow = null)
         {
             InitializeComponent();
 
-            DataContext = new RoomEditorViewModel();
-            (DataContext as RoomEditorViewModel).RoomEditorWindow = this;
-            //RoomEditorWindow is a property from VM
+            DataContext = new AddOrEditServicesViewModel(servicesToShow);
+            (DataContext as AddOrEditServicesViewModel).AddOrEditServicesWindow = this;
         }
     }
 }

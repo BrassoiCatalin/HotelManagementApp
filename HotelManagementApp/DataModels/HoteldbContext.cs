@@ -21,8 +21,8 @@ namespace HotelManagementApp.DataModels
         public virtual DbSet<Offer> Offers { get; set; }
         public virtual DbSet<PriceHistory> PriceHistories { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<ReservationExtra> ReservationExtras { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
-        public virtual DbSet<RoomExtra> RoomExtras { get; set; }
         public virtual DbSet<RoomImage> RoomImages { get; set; }
         public virtual DbSet<RoomOffer> RoomOffers { get; set; }
         public virtual DbSet<RoomRoomImage> RoomRoomImages { get; set; }
@@ -128,6 +128,27 @@ namespace HotelManagementApp.DataModels
                     .HasConstraintName("FK_Reservation_User");
             });
 
+            modelBuilder.Entity<ReservationExtra>(entity =>
+            {
+                entity.ToTable("Reservation_Extra");
+
+                entity.Property(e => e.ExtraId).HasColumnName("Extra_Id");
+
+                entity.Property(e => e.ReservationId).HasColumnName("Reservation_Id");
+
+                entity.HasOne(d => d.Extra)
+                    .WithMany(p => p.ReservationExtras)
+                    .HasForeignKey(d => d.ExtraId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Room_Extra_Extra");
+
+                entity.HasOne(d => d.Reservation)
+                    .WithMany(p => p.ReservationExtras)
+                    .HasForeignKey(d => d.ReservationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Room_Extra_Room");
+            });
+
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.ToTable("Room");
@@ -139,27 +160,6 @@ namespace HotelManagementApp.DataModels
                     .HasForeignKey(d => d.RoomTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Room_Room_Type");
-            });
-
-            modelBuilder.Entity<RoomExtra>(entity =>
-            {
-                entity.ToTable("Room_Extra");
-
-                entity.Property(e => e.ExtraId).HasColumnName("Extra_Id");
-
-                entity.Property(e => e.RoomId).HasColumnName("Room_Id");
-
-                entity.HasOne(d => d.Extra)
-                    .WithMany(p => p.RoomExtras)
-                    .HasForeignKey(d => d.ExtraId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Room_Extra_Extra");
-
-                entity.HasOne(d => d.Room)
-                    .WithMany(p => p.RoomExtras)
-                    .HasForeignKey(d => d.RoomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Room_Extra_Room");
             });
 
             modelBuilder.Entity<RoomImage>(entity =>

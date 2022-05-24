@@ -27,12 +27,12 @@ namespace HotelManagementApp.Views
             InitializeComponent();
 
             DataContext = new StartViewModel();
-            string path = "../../../Images/image2.jpg";
-            //AddImage(path);
+/*            string path = "../../../Images/Villa/villa3.jpg";
+            AddImage(path);*/
             //CreateRoomTypes();
         }
 
-        private void CreateRoomTypes()
+       /* private void CreateRoomTypes()
         {
             HoteldbContext h = new HoteldbContext();
             h.RoomTypes.AddRange(
@@ -81,9 +81,9 @@ namespace HotelManagementApp.Views
             );
 
             h.SaveChanges();
-        }
+        }*/
 
-        private void AddImage(string path)
+        /*private void AddImage(string path)
         {
             HoteldbContext h = new HoteldbContext();
             h.RoomImages.Add(new RoomImage()
@@ -91,7 +91,7 @@ namespace HotelManagementApp.Views
                 Picture = File.ReadAllBytes(path),
             });
             h.SaveChanges();
-        }
+        }*/
     }
 
 }

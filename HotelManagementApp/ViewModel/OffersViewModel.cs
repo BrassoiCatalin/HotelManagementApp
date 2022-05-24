@@ -134,27 +134,7 @@ namespace HotelManagementApp.ViewModel
             OfferToShowList = new ObservableCollection<OfferToShow>(ConstructRoomToShow());
         }
 
-        private List<OfferToShow> ConstructRoomToShow()
-        {
-            var offers = _hoteldbContext.Offers.Include(offer => offer.RoomOffers).Where(offer => offer.Deleted == false).ToList();
-
-            List<OfferToShow> offerToShow = new List<OfferToShow>();
-
-            foreach (var offer in offers)
-            {
-                offerToShow.Add(new OfferToShow()
-                {
-                    Id = offer.Id,
-                    Name = offer.Name,
-                    Price = offer.Price,
-                    StartDate = offer.StartDate,
-                    EndDate = offer.EndDate,
-                    RoomType = _hoteldbContext.RoomTypes.Single(roomType => roomType.Id == offer.RoomOffers.First().RoomTypeId).Description
-                });
-            }
-
-            return offerToShow;
-        }
+        
 
         #endregion
 
@@ -199,6 +179,28 @@ namespace HotelManagementApp.ViewModel
         private void Back(object param)
         {
             OffersWindow.Close();
+        }
+
+        private List<OfferToShow> ConstructRoomToShow()
+        {
+            var offers = _hoteldbContext.Offers.Include(offer => offer.RoomOffers).Where(offer => offer.Deleted == false).ToList();
+
+            List<OfferToShow> offerToShow = new List<OfferToShow>();
+
+            foreach (var offer in offers)
+            {
+                offerToShow.Add(new OfferToShow()
+                {
+                    Id = offer.Id,
+                    Name = offer.Name,
+                    Price = offer.Price,
+                    StartDate = offer.StartDate,
+                    EndDate = offer.EndDate,
+                    RoomType = _hoteldbContext.RoomTypes.Single(roomType => roomType.Id == offer.RoomOffers.First().RoomTypeId).Description
+                });
+            }
+
+            return offerToShow;
         }
         #endregion
     }

@@ -1,0 +1,42 @@
+﻿<Window x:Class="HotelManagementApp.Views.AddOrEditServicesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:HotelManagementApp.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:AddOrEditServicesViewModel}"
+        mc:Ignorable="d"
+        Title="Add/Edit" 
+        Height="250" 
+        Width="350"
+        Background="Wheat"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" FontSize="24" Content="Description" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Height="32" Width="130" FontSize="20" Text="{Binding ServiceDescription}"/>
+
+        <Label Grid.Row="2" Grid.Column="1" FontSize="24" Content="Price:" FontFamily="Comic Sans MS" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Height="32" Width="130" FontSize="20" Text="{Binding ServicePrice}"/>
+
+        <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding AddNewServiceCommand}" Content="Add" Width="60" Height="30" FontSize="20" Visibility="{Binding IsAddServiceWindow}"/>
+        <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding EditServiceCommand}" Content="Edit" Width="60" Height="30" FontSize="20" Visibility="{Binding IsEditServiceWindow}"/>
+        <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource ButtonStyle}" Command="{Binding CancelCommand}" Content="Cancel" Width="60" Height="30" FontSize="20"/>
+
+
+    </Grid>
+</Window>

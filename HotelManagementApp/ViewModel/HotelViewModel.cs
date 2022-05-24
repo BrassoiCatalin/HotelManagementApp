@@ -181,10 +181,7 @@ namespace HotelManagementApp.ViewModel
 
         private void Services(object param)
         {
-            MessageBox.Show("Modify this");
-            return;
-
-            RoomEditorWindow window = new RoomEditorWindow();
+            ServicesWindow window = new ServicesWindow();
             GoToWindow(window);
         }
 

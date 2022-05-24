@@ -60,7 +60,7 @@ namespace HotelManagementApp.ViewModel
         public ICommand AddCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
-        public ICommand BackCommand { get; set; }
+        public ICommand BackCommand { get; }
         #endregion
 
 
@@ -75,40 +75,7 @@ namespace HotelManagementApp.ViewModel
             EditCommand = new RelayCommand(Edit, param => CanExecuteCommands);
             DeleteCommand = new RelayCommand(Delete, param => CanExecuteCommands);
             BackCommand = new RelayCommand(Back);
-
-            string path = "../../../Images/image.jpg";
-
-            RoomToEditList = new ObservableCollection<RoomToShow>()
-            {
-                new RoomToShow
-                {
-                    Type = "Single",
-                    Features = "AC, Watever",
-                    Price = 2.45f,
-                    Number = 1
-                },
-                new RoomToShow
-                {
-                    Type = "Double",
-                    Price = 2.45f,
-                    Features = "AC, Watever",
-                    Number = 2
-                },
-                new RoomToShow
-                {
-                    Type = "Single",
-                    Features = "AC, Watever",
-                    Price = 2.45f,
-                    Number = 3
-                },
-                new RoomToShow
-                {
-                    Features = "AC, Watever",
-                    Type = "Double",
-                    Price = 2.45f,
-                    Number = 4
-                },
-            };
+            
             ConstructRoomToShow();
 
         }
@@ -156,7 +123,7 @@ namespace HotelManagementApp.ViewModel
 
             window.ShowDialog();
         }
-        //daca trebe cumva schimbat la astea doua ca sa putem da back?
+        
         private void Edit(object param)
         {
             if (SelectedRoom == null)
