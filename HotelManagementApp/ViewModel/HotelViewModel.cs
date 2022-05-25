@@ -119,7 +119,7 @@ namespace HotelManagementApp.ViewModel
                 IsAdminConnected = Visibility.Hidden;
             }
 
-            string path = "../../../Images/image.jpg";
+            /*string path = "../../../Images/image.jpg";
 
             RoomToShowList = new ObservableCollection<RoomToShow>()
             {
@@ -151,13 +151,63 @@ namespace HotelManagementApp.ViewModel
                     Price = 2.45f,
                     Image = File.ReadAllBytes(path)
                 },
-            };
+            };*/
+
+            ConstructRoomToShow();
+
         }
 
         #endregion
 
 
         #region Private Methods...
+
+
+        private void ConstructRoomToShow()
+        {
+            var rooms = _hoteldbContext.Rooms.Include(room => room.RoomType).Where(room => room.Deleted == false).ToList();
+
+            List<RoomToShow> roomsToShow = new List<RoomToShow>();
+
+            foreach (var room in rooms)
+            {
+                float price;
+                if (_hoteldbContext.PriceHistories.Where(price => price.RoomTypeId == room.RoomTypeId)
+                    .FirstOrDefault () != null)
+                {
+                    price = _hoteldbContext.PriceHistories.Where(price => price.RoomTypeId == room.RoomTypeId)
+                    .First().Price;
+                }
+                else
+                {
+                    price = 0.0f;
+                }
+
+                roomsToShow.Add(new RoomToShow()
+                {
+                    Number = room.Number,
+                    Type = room.RoomType.Description,
+                    Features = room.RoomType.Features,
+                    Price = price
+                });
+            }
+
+
+            foreach (var room in roomsToShow)
+            {
+                var imageIdByRoom = _hoteldbContext.RoomRoomImages.Include(x => x.RoomType)
+                    .FirstOrDefault(x => x.RoomType.Description.Equals(room.Type));
+
+                if (imageIdByRoom != null)
+                    room.Image = _hoteldbContext.RoomImages.FirstOrDefault(image => image.Id == imageIdByRoom.RoomImageId).Picture;
+            }
+
+            RoomToShowList = new ObservableCollection<RoomToShow>(roomsToShow);
+        }
+
+
+
+
         private void Offers(object param)
         {
             OffersWindow window = new OffersWindow();

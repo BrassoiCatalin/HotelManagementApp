@@ -82,6 +82,8 @@ namespace HotelManagementApp.ViewModel
 
         #endregion
 
+
+        #region Private Methods...
         private void ConstructRoomToShow()
         {
             var rooms = _hoteldbContext.Rooms.Include(room => room.RoomType).Where(room => room.Deleted == false).ToList();
@@ -90,12 +92,24 @@ namespace HotelManagementApp.ViewModel
 
             foreach (var room in rooms)
             {
+                float price;
+                if (_hoteldbContext.PriceHistories.Where(price => price.RoomTypeId == room.RoomTypeId)
+                    .FirstOrDefault() != null)
+                {
+                    price = _hoteldbContext.PriceHistories.Where(price => price.RoomTypeId == room.RoomTypeId)
+                    .First().Price;
+                }
+                else
+                {
+                    price = 0.0f;
+                }
+
                 roomsToShow.Add(new RoomToShow()
                 {
                     Number = room.Number,
                     Type = room.RoomType.Description,
                     Features = room.RoomType.Features,
-                    Price = 0.0f
+                    Price = price
                 });
             }
 
@@ -105,17 +119,13 @@ namespace HotelManagementApp.ViewModel
                 var imageIdByRoom = _hoteldbContext.RoomRoomImages.Include(x => x.RoomType)
                     .FirstOrDefault(x => x.RoomType.Description.Equals(room.Type));
 
-                if(imageIdByRoom != null)
+                if (imageIdByRoom != null)
                     room.Image = _hoteldbContext.RoomImages.FirstOrDefault(image => image.Id == imageIdByRoom.RoomImageId).Picture;
             }
 
             RoomToEditList = new ObservableCollection<RoomToShow>(roomsToShow);
         }
 
-
-
-
-        #region Private Methods...
 
         private void Add(object param)
         {
